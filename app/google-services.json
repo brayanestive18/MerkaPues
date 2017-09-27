@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "55822831372",
+    "project_id": "merk-pues"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55822831372:android:518d6fc2d4cce66d",
+        "android_client_info": {
+          "package_name": "com.brayadiaz.merkapues"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55822831372-oe8qa94td01f8t0olkiqsb2ik8pvd69j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brayadiaz.merkapues",
+            "certificate_hash": "9937aee668e35f8eda40ca61fc121e634b6622c9"
+          }
+        },
+        {
+          "client_id": "55822831372-t3c5fj33bv7h08nfllg6hqbj9sv41nht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm3uOZkJF6E_HCB_JthEGsCIlCgmjB6pk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

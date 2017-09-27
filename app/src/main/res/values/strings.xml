@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Merka Pues</string>
+    <string name="correo">Correo Electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="iniciar">Iniciar Sección</string>
+    <string name="registrar">Registrese</string>
+    <string name="repContrasena">Repetir Contraseña</string>
+    <string name="bregistrar">Registrar</string>
+    <string name="perfil">Mi Perfil</string>
+    <string name="mCerrar">Cerrar Sección</string>
+    <string name="main">Principal</string>
+
+    <string name="facebook_app_id">471513346565435</string>
+    <string name="fb_login_protocol_scheme">fb471513346565435</string>
+
+</resources>

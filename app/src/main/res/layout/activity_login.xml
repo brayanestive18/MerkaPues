@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.brayadiaz.merkapues.LoginActivity"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:src="@drawable/merkapuesinv"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="0.3"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+                <EditText
+                    android:id="@+id/eCorreo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/mail"
+                    android:hint="@string/correo"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+                <EditText
+                    android:id="@+id/eContrasena"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/pass"
+                    android:hint="@string/contrasena"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1">
+
+            <Button
+                android:id="@+id/bIniciar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:onClick="iniciar"
+                android:text="@string/iniciar"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="0.2">
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0.1"
+            android:gravity="center_horizontal"
+            android:onClick="registro"
+            android:text="@string/registrar"
+            android:textColor="@color/red" />
+
+    </LinearLayout>
+
+</LinearLayout>
