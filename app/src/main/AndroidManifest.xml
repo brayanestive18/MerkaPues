@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.brayadiaz.merkapues">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/icono_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -28,6 +28,7 @@
         <activity android:name=".RegistroActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".PerfilActivity" />
+        <activity android:name=".BaseActivity"></activity>
     </application>
 
 </manifest>

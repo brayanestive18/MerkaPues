@@ -1,6 +1,8 @@
 package com.brayadiaz.merkapues;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,14 +20,19 @@ public class MainActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private int logId;
 
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Bundle extras = getIntent().getExtras();
-        correoR = extras.getString("correo");
-        contrasenaR = extras.getString("contrasena");
+        if (extras != null) {
+            correoR = extras.getString("correo");
+            contrasenaR = extras.getString("contrasena");
+        }
     }
 
     @Override
@@ -43,15 +50,20 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case R.id.mPerfil:
                 intent = new Intent(MainActivity.this, PerfilActivity.class);
-                intent.putExtra("contrasena",contrasenaR);
-                intent.putExtra("correo", correoR);
+                //intent.putExtra("contrasena",contrasenaR);
+                //intent.putExtra("correo", correoR);
                 startActivity(intent);
                 break;
             case R.id.mCerrar:
+                prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                editor = prefs.edit();
 
-                if (logId == 1) {
+                editor.putInt("optLog", 0);
+                editor.commit();
+
+                //if (logId == 1) {
                     LoginManager.getInstance().logOut(); // Facebook
-                } else if(logId == 2) {
+                /*} else if (logId == 2) {
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                             new ResultCallback<Status>() {
                                 @Override
@@ -59,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
                                     // ...
                                 }
                             });
-                } else if(logId == 3) {
+                } else if (logId == 3) {
                     //Putextras correo nombre contraseña a login
-                }
+                }*/
                 intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();

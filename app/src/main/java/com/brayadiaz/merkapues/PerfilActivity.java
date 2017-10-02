@@ -1,28 +1,82 @@
 package com.brayadiaz.merkapues;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import com.squareup.picasso.Picasso;
 
 public class PerfilActivity extends AppCompatActivity {
 
-    private String correoR, contrasenaR;
+    private String correoR, name, url_photo;
     private TextView Info;
+    private ImageView photo;
+
+
+    private GoogleApiClient mGoogleApiClient;
+    private int logId;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        Info = (TextView) findViewById(R.id.pInfo);
-        Bundle extras = getIntent().getExtras();
-        correoR = extras.getString("correo");
-        contrasenaR = extras.getString("contrasena");
+        prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        editor = prefs.edit();
+        logId = prefs.getInt("optLog", 0); //editor.putInt("optLog", 0);
+        correoR = prefs.getString("correo", "No Data");
+        name = prefs.getString("name", "No Data");
+        url_photo = prefs.getString("url_photo", "No Data");
 
-        Info.setText("Correo Electrónico: " + correoR +"\nContraseña: " + contrasenaR);
+
+        /*
+        editor.putString("user", IDuser);
+        editor.putString("toke", toke);
+        editor.putString("email", correoL);
+        editor.putString("name", user);
+        editor.putString("url_photo", url_photo.toString());
+        editor.commit();*/
+
+
+        //editor.putString("toke", toke);
+
+        Info = (TextView) findViewById(R.id.pInfo);
+        photo = (ImageView) findViewById(R.id.photo);
+
+        if (logId == 1 || logId == 2) {
+            DescargaImagen m = new DescargaImagen();
+            m.execute();
+        }
+        Info.setText("Nombre: " + name +"\nCorreo Electrónico: " + correoR +"\nURL: " + url_photo +"\nLogID: " + String.valueOf(logId));
+
+
+
+        /*String imageURL;
+        imageURL = "http://graph.facebook.com/"+user+"/picture?type=small";
+
+        photo.setImageBitmap(getBitmapFromURL(imageURL));*/
     }
 
     @Override
@@ -40,21 +94,88 @@ public class PerfilActivity extends AppCompatActivity {
         switch (id){
             case R.id.mMain:
                 intent = new Intent(PerfilActivity.this, MainActivity.class);
-                intent.putExtra("contrasena",contrasenaR);
-                intent.putExtra("correo", correoR);
+                //intent.putExtra("contrasena",contrasenaR);
+                //intent.putExtra("correo", correoR);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.mCerrar:
+                prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                editor = prefs.edit();
+
+                editor.putInt("optLog", 0);
+                editor.commit();
+
+                //if (logId == 1) {
+                    LoginManager.getInstance().logOut(); // Facebook
+                /*} else if (logId == 2) {
+                    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                            new ResultCallback<Status>() {
+                                @Override
+                                public void onResult(Status status) {
+                                    // ...
+                                }
+                            });
+                } else {//if (logId == 3) {
+                    LoginManager.getInstance().logOut();
+                    //Putextras correo nombre contraseña a login
+                }*/
+
                 intent = new Intent(PerfilActivity.this, LoginActivity.class);
-                intent.putExtra("contrasena",contrasenaR);
-                intent.putExtra("correo", correoR);
+                //intent.putExtra("contrasena",contrasenaR);
+                //intent.putExtra("correo", correoR);
                 startActivity(intent);
                 finish();
+
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    class DescargaImagen extends AsyncTask<Void,Void,Void>{
+
+        Bitmap descarga = null;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {//descargamos la imagen de perfil del usuario
+                descarga = Picasso.with(PerfilActivity.this).load(url_photo).get();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+                return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            if (descarga != null) {
+                photo.setImageBitmap(descarga);
+            }
+            super.onPostExecute(aVoid);
+        }
+    }
+
+    /*public static Bitmap getBitmapFromURL(String src) {
+        try {
+            Log.e("src",src);
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            Log.e("Bitmap","returned");
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("Exception",e.getMessage());
+            return null;
+        }
+    }*/
 
 }

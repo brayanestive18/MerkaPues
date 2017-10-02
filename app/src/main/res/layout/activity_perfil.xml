@@ -9,23 +9,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/photo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:src="@mipmap/icono_app"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/pInfo"/>
+            android:id="@+id/pInfo"
+            android:textColor="@color/black"
+            android:textSize="20dp"/>
 
     </LinearLayout>
 

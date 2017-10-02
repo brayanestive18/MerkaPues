@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
+        android:layout_weight="2"
         android:src="@drawable/merkapuesinv"/>
 
     <LinearLayout
@@ -20,6 +20,20 @@
         android:orientation="vertical"
         android:layout_weight="0.2"
         android:layout_margin="8dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user"
+                android:id="@+id/eUser"
+                android:drawableLeft="@mipmap/user"/>
+
+        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
