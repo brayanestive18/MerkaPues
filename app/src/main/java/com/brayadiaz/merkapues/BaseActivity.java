@@ -20,6 +20,8 @@ public class BaseActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
 
+        //HOla
+
         ListFragment fragment = new ListFragment();
         ft.add(R.id.frame, fragment).commit();
     }
