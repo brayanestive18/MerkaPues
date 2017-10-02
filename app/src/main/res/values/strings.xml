@@ -18,5 +18,11 @@
     <string name="Lista">Lista</string>
     <string name="cambiar">Cambiar Frame</string>
     <string name="user">Nombre</string>
+    <string name="title_activity_base2">Base2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>
