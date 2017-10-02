@@ -73,6 +73,7 @@ public class RegistroActivity extends AppCompatActivity {
             intent.putExtra("correo", correo);
             intent.putExtra("contrasena", contrasena);
 
+            
             setResult(RESULT_OK, intent);
 
             finish();
