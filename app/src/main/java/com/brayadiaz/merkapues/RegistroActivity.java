@@ -67,13 +67,14 @@ public class RegistroActivity extends AppCompatActivity {
             editor.putString("name", user);
             //editor.commit();
             editor.apply();
+            
             Toast.makeText(this,"Registro Exitoso",Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent();
             intent.putExtra("correo", correo);
             intent.putExtra("contrasena", contrasena);
 
-            
+
             setResult(RESULT_OK, intent);
 
             finish();
