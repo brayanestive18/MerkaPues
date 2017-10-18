@@ -284,6 +284,8 @@
 		<item>@color/ivory </item>
 		<item>@color/white </item>
 	</integer-array>
-	
+
+	<color name="md_white_1000">#ffffff</color>
+
 </resources>
 

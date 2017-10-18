@@ -14,7 +14,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NavigationActivity {
 
     private String correoR, contrasenaR;
     private GoogleApiClient mGoogleApiClient;

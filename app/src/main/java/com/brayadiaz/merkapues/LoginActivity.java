@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Profile perfil = com.facebook.Profile.getCurrentProfile();
                 user = perfil.getName();
-                url_photo = perfil.getProfilePictureUri(200,200);
+                url_photo = perfil.getProfilePictureUri(300,300);
 
                 GraphRequest.newMeRequest(
                     loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -188,7 +188,8 @@ public class LoginActivity extends AppCompatActivity {
         //editor.putString("contrasena", contrasenaR);
         editor.commit();
 
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, PromoActivity.class);
         //intent.putExtra("correo",correoR);
         //intent.putExtra("contrasena", contrasenaR);
         startActivity(intent);

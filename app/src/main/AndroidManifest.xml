@@ -25,13 +25,30 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegistroActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".PerfilActivity" />
-        <activity android:name=".BaseActivity" />
         <activity
-            android:name=".Base2Activity"
-            android:label="@string/title_activity_base2"
+            android:name=".RegistroActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PerfilActivity"
+            android:label="@string/perfil"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NavigationActivity"
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PromoActivity"
+            android:label="@string/title_activity_promo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MisListasActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CarsShopActivity"
+            android:label="@string/title_activity_cars_shop"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

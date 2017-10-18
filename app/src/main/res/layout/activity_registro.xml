@@ -83,7 +83,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/registrar"
+            android:text="@string/bregistrar"
             android:id="@+id/bIniciar"
             android:background="@color/colorPrimary"
             android:textColor="@color/white"

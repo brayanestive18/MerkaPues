@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_promo"
+            android:icon="@drawable/ic_local_offer_black_24px"
+            android:title="@string/promo" />
+        <item
+            android:id="@+id/nav_listas"
+            android:icon="@drawable/ic_list_black_24px"
+            android:title="@string/listas" />
+        <item
+            android:id="@+id/nav_carrito"
+            android:icon="@drawable/ic_shopping_cart_black_24px"
+            android:title="@string/carrito" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_perfil"
+                android:icon="@drawable/ic_person_48px"
+                android:title="@string/perfil" />
+            <item
+                android:id="@+id/nav_close"
+                android:icon="@drawable/ic_exit_to_app_48px"
+                android:title="@string/mCerrar" />
+        </menu>
+    </item>
+
+</menu>

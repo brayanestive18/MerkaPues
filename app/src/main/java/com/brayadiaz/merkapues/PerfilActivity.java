@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +27,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import com.squareup.picasso.Picasso;
 
-public class PerfilActivity extends AppCompatActivity {
+public class PerfilActivity extends NavigationActivity {
+//public class PerfilActivity extends AppCompatActivity {
 
     private String correoR, name, url_photo;
     private TextView Info;
@@ -78,13 +80,13 @@ public class PerfilActivity extends AppCompatActivity {
 
         photo.setImageBitmap(getBitmapFromURL(imageURL));*/
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu1, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
+    }*/
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -121,18 +123,17 @@ public class PerfilActivity extends AppCompatActivity {
                     //Putextras correo nombre contraseña a login
                 }*/
 
-                intent = new Intent(PerfilActivity.this, LoginActivity.class);
+                //intent = new Intent(PerfilActivity.this, LoginActivity.class);
                 //intent.putExtra("contrasena",contrasenaR);
                 //intent.putExtra("correo", correoR);
-                startActivity(intent);
-                finish();
+                //startActivity(intent);
+                //finish();
 
-                break;
-        }
+               // break;
+       // }
 
-        return super.onOptionsItemSelected(item);
-    }
-
+        //return super.onOptionsItemSelected(item);
+    //}
 
     class DescargaImagen extends AsyncTask<Void,Void,Void>{
 

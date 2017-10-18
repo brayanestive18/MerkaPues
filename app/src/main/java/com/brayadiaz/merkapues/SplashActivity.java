@@ -38,12 +38,13 @@ public class SplashActivity extends AppCompatActivity {
                 Intent intent;
                 if(optLog == 0) {
                 //Me permite abrir otra actividad, le indicamos donde estamos para donde vamos
-                intent = new Intent(SplashActivity.this, LoginActivity.class);
-            } else {
-                intent = new Intent(SplashActivity.this, MainActivity.class);
-            }
-            startActivity(intent);
-            finish();
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+                } else {
+                    //intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent = new Intent(SplashActivity.this, PromoActivity.class);
+                }
+                startActivity(intent);
+                finish();
             }
         };
 

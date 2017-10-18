@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/md_white_1000">
+
+    <ImageView
+        android:id="@+id/list_time"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_menu_share"
+        android:tint="@color/colorPrimary"
+        android:layout_margin="16dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"/>
+
+
+
+
+</RelativeLayout>
