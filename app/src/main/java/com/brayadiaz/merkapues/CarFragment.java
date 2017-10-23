@@ -17,7 +17,8 @@ import android.widget.Toast;
  */
 public class CarFragment extends Fragment {
 
-    private String Lista[] = new String[]{"Arroz             2 Lb","Azucar          2 Kg","Sal                2 Lb","Leche            3"};
+    private String Lista[] = new String[]{"Arroz             2 Lb","Azucar          2 Kg",
+            "Sal                2 Lb","Leche            3"};
     private ListView list;
 
 
