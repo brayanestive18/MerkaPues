@@ -4,12 +4,42 @@
     android:layout_height="match_parent"
     tools:context="com.brayadiaz.merkapues.FavoritasFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cumpleaños"
+            android:textSize="20dp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mercado"
+            android:textSize="20dp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Asado"
+            android:textSize="20dp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fiesta de Halloween"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+
+</FrameLayout>
+
+    <!-- TODO: Update blank fragment layout
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Mis Listas Favoritas"
         android:textColor="@color/black"
         android:textSize="40dp"/>
-
-</FrameLayout>
+        -->

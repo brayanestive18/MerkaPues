@@ -40,5 +40,7 @@
     <string name="title_activity_cars_shop">CarsShopActivity</string>
     <string name="but_car">Mi Carrito</string>
     <string name="but_compras">Mis Compras</string>
+    <string name="t_user">Nombre de Usuario:</string>
+    <string name="t_email">Correo Electrónico:</string>
 
 </resources>

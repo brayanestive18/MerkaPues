@@ -31,7 +31,7 @@ public class PerfilActivity extends NavigationActivity {
 //public class PerfilActivity extends AppCompatActivity {
 
     private String correoR, name, url_photo;
-    private TextView Info;
+    private TextView tUser, tEmail;
     private ImageView photo;
 
 
@@ -64,15 +64,16 @@ public class PerfilActivity extends NavigationActivity {
 
         //editor.putString("toke", toke);
 
-        Info = (TextView) findViewById(R.id.pInfo);
+        tUser = (TextView) findViewById(R.id.t_user);
+        tEmail = (TextView) findViewById(R.id.t_email);
         photo = (ImageView) findViewById(R.id.photo);
 
         if (logId == 1 || logId == 2) {
             DescargaImagen m = new DescargaImagen();
             m.execute();
         }
-        Info.setText("Nombre: " + name +"\nCorreo Electrónico: " + correoR +"\nURL: " + url_photo +"\nLogID: " + String.valueOf(logId));
-
+        tUser.setText(name);
+        tEmail.setText(correoR);
 
 
         /*String imageURL;

@@ -45,10 +45,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MisListasActivity"
+            android:label="Mis Listas"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CarsShopActivity"
-            android:label="@string/title_activity_cars_shop"
+            android:label="Carro de Compras"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
