@@ -33,8 +33,10 @@ public class CarFragment extends Fragment {
 
         list = (ListView) view.findViewById(R.id.view_compras);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_expandable_list_item_1, Lista);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                android.R.layout.simple_expandable_list_item_1, Lista);
         list.setAdapter(adapter);
+
         list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
