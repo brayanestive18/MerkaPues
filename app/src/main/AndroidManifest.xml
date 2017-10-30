@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.brayadiaz.merkapues">
+    package="com.brayadiaz.merka">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -15,7 +15,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".SplashActivity">
+        <activity android:name="com.brayadiaz.merka.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,32 +23,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.brayadiaz.merka.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".RegistroActivity"
+            android:name="com.brayadiaz.merka.RegistroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.brayadiaz.merka.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PerfilActivity"
+            android:name="com.brayadiaz.merka.PerfilActivity"
             android:label="@string/perfil"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".NavigationActivity"
+            android:name="com.brayadiaz.merka.NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PromoActivity"
+            android:name="com.brayadiaz.merka.PromoActivity"
             android:label="@string/title_activity_promo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MisListasActivity"
+            android:name="com.brayadiaz.merka.MisListasActivity"
             android:label="Mis Listas"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CarsShopActivity"
+            android:name="com.brayadiaz.merka.CarsShopActivity"
             android:label="Carro de Compras"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

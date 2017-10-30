@@ -1,4 +1,4 @@
-package com.brayadiaz.merkapues;
+package com.brayadiaz.merka;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-
-import com.brayadiaz.merkapues.NavigationActivity;
 
 import java.util.ArrayList;
 

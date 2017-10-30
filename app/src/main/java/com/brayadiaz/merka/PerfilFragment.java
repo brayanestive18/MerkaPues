@@ -1,4 +1,4 @@
-package com.brayadiaz.merkapues;
+package com.brayadiaz.merka;
 
 
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MesPromoFragment extends Fragment {
+public class PerfilFragment extends Fragment {
 
 
-    public MesPromoFragment() {
+    public PerfilFragment() {
         // Required empty public constructor
     }
 
@@ -23,7 +23,7 @@ public class MesPromoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mes_promo, container, false);
+        return inflater.inflate(R.layout.fragment_perfil, container, false);
     }
 
 }

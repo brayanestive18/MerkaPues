@@ -1,4 +1,4 @@
-package com.brayadiaz.merkapues;
+package com.brayadiaz.merka;
 
 import org.junit.Test;
 

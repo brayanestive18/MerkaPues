@@ -1,16 +1,8 @@
-package com.brayadiaz.merkapues;
+package com.brayadiaz.merka;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 public class PromoActivity extends NavigationActivity {
 
