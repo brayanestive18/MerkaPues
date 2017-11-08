@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
@@ -14,6 +16,10 @@
             android:id="@+id/nav_carrito"
             android:icon="@drawable/ic_shopping_cart_black_24px"
             android:title="@string/carrito" />
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_map_marker_radius"
+            android:title="@string/cerca" />
     </group>
 
     <item android:title="">

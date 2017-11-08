@@ -4,17 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class MainActivity extends NavigationActivity {
+public class MainActivity extends MenuDrawerActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private String correoR, contrasenaR;
     private GoogleApiClient mGoogleApiClient;
     private int logId;
+    FragmentManager fm;
+    FragmentTransaction ft;
 
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
@@ -22,7 +29,10 @@ public class MainActivity extends NavigationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frame);
+        getLayoutInflater().inflate(R.layout.activity_main, contentFrameLayout);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

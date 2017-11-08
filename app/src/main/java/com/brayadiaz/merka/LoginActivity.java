@@ -31,6 +31,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONObject;
 
@@ -51,6 +53,12 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
 
+    Intent intent = null;
+
+    User user_class;
+
+    DatabaseReference myRef;
+    FirebaseDatabase database;
 
     GoogleApiClient mGoogleApiClient;
 
@@ -109,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                 logId = 1;
 
                 Profile perfil = com.facebook.Profile.getCurrentProfile();
+
                 user = perfil.getName();
                 url_photo = perfil.getProfilePictureUri(300,300);
 
@@ -124,6 +133,9 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                 }).executeAsync();
+
+                //database = FirebaseDatabase.getInstance();
+                //myRef = database.getReference("Users").child("user"+uid);
 
                 editor.putString("user", IDuser);
                 editor.putString("toke", toke);
@@ -150,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // ---------------- Obtener Hash -------------------------------------
-
+        /*
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.brayadiaz.merkapues",
@@ -166,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
 
         }
-
+        */
         //-----------------------------------------------------------------------------//
 
     }
@@ -187,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.commit();
 
         //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        Intent intent = new Intent(LoginActivity.this, PromoActivity.class);
+        intent = new Intent(LoginActivity.this, MenuDrawerActivity.class);
         //intent.putExtra("correo",correoR);
         //intent.putExtra("contrasena", contrasenaR);
         startActivity(intent);
@@ -292,8 +304,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void registro(View view) {
-        Intent intent = new Intent(LoginActivity.this, RegistroActivity.class);
+    public void register(View view) {
+        intent = new Intent(LoginActivity.this, RegistroActivity.class);
+        //startActivity(intent);
+        //finish();
+
         startActivityForResult(intent, 1234);
     }
 
@@ -315,7 +330,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
         Bundle permission_param = new Bundle();
         //Movie picture;
-        permission_param.putString("fields", "id,name,email, picture.width(120).height(120)");
+        permission_param.putString("fields", "id,name,email, picture.width(300).height(300)");
         data_request.setParameters(permission_param);
         data_request.executeAsync();
 

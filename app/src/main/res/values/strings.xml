@@ -42,5 +42,8 @@
     <string name="but_compras">Mis Compras</string>
     <string name="t_user">Nombre de Usuario:</string>
     <string name="t_email">Correo Electrónico:</string>
+    <string name="title_activity_menu_drawer">MenuDrawerActivity</string>
+    <string name="cerca">Tiendas Cercanas</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

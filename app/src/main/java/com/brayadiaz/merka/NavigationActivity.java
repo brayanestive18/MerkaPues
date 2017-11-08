@@ -143,7 +143,7 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     protected void setMenu(){
-        navigationView.inflateMenu(R.menu.activity_navigation_drawer);
+        navigationView.inflateMenu(R.menu.activity_menu_drawer_drawer);
     }
 
     /**
@@ -181,7 +181,7 @@ public class NavigationActivity extends AppCompatActivity {
                             case R.id.nav_promo:
                                 fullLayout.closeDrawer(GravityCompat.START);
                                 if (!item.isChecked()) {
-                                    intent = new Intent(NavigationActivity.this,PromoActivity.class);
+                                    //intent = new Intent(NavigationActivity.this,PromoActivity.class);
                                     handler.postDelayed(delay, 150);
                                     item.setChecked(true);      // Start activity after some delay
                                 }
@@ -189,7 +189,7 @@ public class NavigationActivity extends AppCompatActivity {
                             case R.id.nav_listas:
                                 fullLayout.closeDrawer(GravityCompat.START);
                                 if (!item.isChecked()) {
-                                    intent = new Intent(NavigationActivity.this,MisListasActivity.class);
+                                    //intent = new Intent(NavigationActivity.this,MisListasActivity.class);
                                     handler.postDelayed(delay, 150);
                                     item.setChecked(true);
                                 }
@@ -197,7 +197,7 @@ public class NavigationActivity extends AppCompatActivity {
                             case R.id.nav_carrito:
                                 fullLayout.closeDrawer(GravityCompat.START);
                                 if (!item.isChecked()) {
-                                    intent = new Intent(NavigationActivity.this, CarsShopActivity.class);
+                                    //intent = new Intent(NavigationActivity.this, CarsShopActivity.class);
                                     handler.postDelayed(delay, 150);
                                     item.setChecked(true);
                                 }
@@ -248,15 +248,15 @@ public class NavigationActivity extends AppCompatActivity {
             finish();
         }
     };
-/*
-    protected Intent putExtras(Class className){
+
+   /* protected Intent putExtras(Class className){
         Intent intent = new Intent(this, className);
         intent.putExtra("username", extras.getString("username"));
         intent.putExtra("email", extras.getString("email"));
         return intent;
     }*/
 
-    /*
+   /*
     @Override
     public void signOutRevokeAccess() {
         intent = new Intent(DrawerActivity.this,WelcomeScreenActivity.class);

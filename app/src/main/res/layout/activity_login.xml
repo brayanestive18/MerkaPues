@@ -100,7 +100,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="0.1"
             android:gravity="center_horizontal"
-            android:onClick="registro"
+            android:onClick="register"
             android:text="@string/registrar"
             android:textColor="@color/red" />
 

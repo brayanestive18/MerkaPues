@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,7 +14,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import com.squareup.picasso.Picasso;
 
-public class PerfilActivity extends NavigationActivity {
+public class PerfilActivity extends MenuDrawerActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 //public class PerfilActivity extends AppCompatActivity {
 
     private String correoR, name, url_photo;
@@ -28,7 +31,10 @@ public class PerfilActivity extends NavigationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil);
+        //setContentView(R.layout.activity_perfil);
+
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frame);
+        getLayoutInflater().inflate(R.layout.activity_perfil, contentFrameLayout);
 
         prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         editor = prefs.edit();

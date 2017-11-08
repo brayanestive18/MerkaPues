@@ -2,13 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brayadiaz.merka.MisComprasFragment">
+    tools:context="com.brayadiaz.merka.MapsFragment">
 
-    <ListView
-        android:layout_width="match_parent"
+    <com.google.android.gms.maps.MapView
+        android:name="com.google.android.gms.maps.supportMapFragment"
+        android:id="@+id/vmap"
         android:layout_height="match_parent"
-        android:id="@+id/view_mis_compras">
+        android:layout_width="match_parent"
+        />
 
-    </ListView>
 
 </FrameLayout>
