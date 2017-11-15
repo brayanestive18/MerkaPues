@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -31,8 +32,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
@@ -43,12 +55,16 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 56789;
+    private static final String TAG = "Login";
     private String correoR, contrasenaR, correoL = "", contrasenaL = "", user, toke, IDuser;
     private Uri url_photo;
     private EditText eCorreo, eContrasena;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private int logId; // 0.NO LOGIN 1.Facebook, 2.Google, 3.Manual
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
@@ -61,11 +77,27 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseDatabase database;
 
     GoogleApiClient mGoogleApiClient;
+    private boolean success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
+        /*firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null){
+                    Toast.makeText(LoginActivity.this, "loggeo",Toast.LENGTH_LONG).show();
+                    crear_tabla(user);
+                    goMainActivity();
+                }
+
+            }
+        };*/
 
         eCorreo = (EditText) findViewById(R.id.eCorreo);
         eContrasena = (EditText) findViewById(R.id.eContrasena);
@@ -144,7 +176,9 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("url_photo", url_photo.toString());
                 editor.commit();
 
-                goMainActivity();
+                handleFacebookAccessToken(loginResult.getAccessToken());
+
+                //goMainActivity();
             }
 
 
@@ -182,6 +216,38 @@ public class LoginActivity extends AppCompatActivity {
         //-----------------------------------------------------------------------------//
 
     }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (!(buscar(user))) {
+                                crear_tabla(user);
+                            }
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
+
+    }
+
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -226,15 +292,49 @@ public class LoginActivity extends AppCompatActivity {
 
         if (correoL.equals("") || contrasenaL.equals("")) {
             Toast.makeText(this, "Por Favor, Ingrese todos los campos", Toast.LENGTH_SHORT).show();
-        } else if (correoR.equals("No Data") || contrasenaR.equals("No Data") || logId == 0) {
+        } /*else if (correoR.equals("No Data") || contrasenaR.equals("No Data") || logId == 0) {
             Toast.makeText(this, "Por Favor, Registrese", Toast.LENGTH_SHORT).show();
         } else if (correoL.equals(correoR) && contrasenaL.equals(contrasenaR)) { //correoL.equals(correoR) && contrasenaL.equals(contrasenaR)
             logId = 3;
             goMainActivity();
         } else {
             Toast.makeText(this, "Correo y/o Contraseña son incorrectos", Toast.LENGTH_SHORT).show();
+        }*/
+        else{
+        // Login con Farebase
+            mAuth.signInWithEmailAndPassword(correoL, contrasenaL)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "signInWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                updateUI(user);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                //Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+                                updateUI(null);
+                            }
+
+                            // ...
+                        }
+                    });
+
+
         }
 
+    }
+
+    private void updateUI(FirebaseUser fuser) {
+        if (fuser != null){
+            goMainActivity();
+        }
+        else {
+            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -249,6 +349,16 @@ public class LoginActivity extends AppCompatActivity {
         } else if (requestCode == RC_SIGN_IN) {                                      // Login Google
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
+
+            /*if (result.isSuccess()) {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = result.getSignInAccount();
+                firebaseAuthWithGoogle(account);
+            } else {
+                // Google Sign In failed, update UI appropriately
+                // ...
+            }*/
+
         } else {                                                                    // Login Facebook
             callbackManager.onActivityResult(requestCode,resultCode,data);
         }
@@ -256,13 +366,48 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (!(buscar(user))) {
+                                Log.w(TAG, "No deberia entrar aca");
+                                crear_tabla(user);
+                            }
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
+
+    }
+
     private void handleSignInResult(GoogleSignInResult result) {
         //Log.d("google", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Toast.makeText(getApplicationContext(),"Login Exitoso",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Login Exitoso Google",Toast.LENGTH_SHORT).show();
             //Log.d("Nombre", acct.getDisplayName());
+
+
+
             logId = 2;
 
             prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
@@ -297,7 +442,9 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("url_photo", url_photo.toString());
             editor.commit();
 
-            goMainActivity();
+            firebaseAuthWithGoogle(acct);
+
+            //goMainActivity();
         } else {
             // Signed out, show unauthenticated UI.
             Toast.makeText(getApplicationContext(),"Error en el login",Toast.LENGTH_SHORT).show();
@@ -335,4 +482,57 @@ public class LoginActivity extends AppCompatActivity {
         data_request.executeAsync();
 
     }
+
+
+    private void crear_tabla(FirebaseUser fuser){
+        String uid = fuser.getUid();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Users").child(uid).child("Info");
+        user_class = new User(user, correoL, url_photo.toString(), "No Data", uid,0);
+        myRef.setValue(user_class);
+        myRef = database.getReference("Users").child(uid).child("Listas");
+    }
+
+    private boolean buscar (FirebaseUser fuser){
+        final String uid = fuser.getUid();
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Users");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(uid).exists()){
+                    Log.w(TAG, "Usuario Encontrado: " + uid);
+                    success = true;
+                }
+                else {
+                    Log.w(TAG, "Usuario No Encontrado");
+                    success = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+        return success;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //mAuth.addAuthStateListener(firebaseAuthListener);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //mAuth.removeAuthStateListener(firebaseAuthListener);
+    }
+
 }
