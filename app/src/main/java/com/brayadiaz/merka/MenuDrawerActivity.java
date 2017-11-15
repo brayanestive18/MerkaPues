@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -147,8 +148,8 @@ public class MenuDrawerActivity extends AppCompatActivity
             //intent = new Intent(getApplication(), MainActivity.class);
             //startActivity(intent);
         } else if (id == R.id.nav_listas) {
-            fragment = new ListFragment();
-            ft.replace(R.id.frame,fragment).commit();
+            //fragment = new ListFragment();
+            //ft.replace(R.id.frame,fragment).commit();
             //intent = new Intent(getApplication(), ListaActivity.class);
             //startActivity(intent);
 
@@ -170,6 +171,7 @@ public class MenuDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_close) {
             intent = new Intent(getApplication(), LoginActivity.class);
             //prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+            FirebaseAuth.getInstance().signOut();
             editor = preferences.edit();
 
             editor.putInt("optLog", 0);

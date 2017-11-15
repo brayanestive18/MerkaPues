@@ -6,15 +6,16 @@ package com.brayadiaz.merka;
 
 public class User {
     private String name, email, url, password;
-    private String uid, listas;
+    private String uid;
+    private int cantLis = 0;
 
-    public User(String name, String email, String url, String password,String uid, String listas) {
+    public User(String name, String email, String url, String password,String uid, int cantLis) {
         this.name = name;
         this.email = email;
         this.url = url;
         this.password = password;
         this.uid = uid;
-        this.listas = listas;
+        this.cantLis = cantLis;
     }
 
     public User() {
@@ -60,11 +61,11 @@ public class User {
         this.password = password;
     }
 
-    public String getListas() {
-        return listas;
+    public int getCantLis() {
+        return cantLis;
     }
 
-    public void setListas(String listas) {
-        this.listas = listas;
+    public void setCantLis(int cantLis) {
+        this.cantLis = cantLis;
     }
 }

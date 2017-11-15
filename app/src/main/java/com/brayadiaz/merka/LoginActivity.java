@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseDatabase database;
 
     GoogleApiClient mGoogleApiClient;
-    private boolean success;
+    private int success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,14 +230,14 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            if (!(buscar(user))) {
+                            if (buscar(user) == 1) {
                                 crear_tabla(user);
                             }
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "Authentication failed. Facebook",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -314,7 +314,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                //Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Correo y/o Contraseña son incorrectos.",Toast.LENGTH_SHORT).show();
                                 updateUI(null);
                             }
 
@@ -332,8 +332,7 @@ public class LoginActivity extends AppCompatActivity {
             goMainActivity();
         }
         else {
-            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Sesión Finalizada", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -379,7 +378,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            if (!(buscar(user))) {
+                            if (buscar(user) == 1) {
                                 Log.w(TAG, "No deberia entrar aca");
                                 crear_tabla(user);
                             }
@@ -387,7 +386,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "Authentication failed. Google",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -493,7 +492,7 @@ public class LoginActivity extends AppCompatActivity {
         myRef = database.getReference("Users").child(uid).child("Listas");
     }
 
-    private boolean buscar (FirebaseUser fuser){
+    private int buscar (FirebaseUser fuser){
         final String uid = fuser.getUid();
 
         database = FirebaseDatabase.getInstance();
@@ -502,12 +501,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(uid).exists()){
-                    Log.w(TAG, "Usuario Encontrado: " + uid);
-                    success = true;
+                    Log.w(TAG, "Usuario Encontrado: " + uid + dataSnapshot.child(uid).child("Info").child("name").toString());
+                    success = 0;
                 }
                 else {
                     Log.w(TAG, "Usuario No Encontrado");
-                    success = false;
+                    success = 1;
                 }
             }
 
