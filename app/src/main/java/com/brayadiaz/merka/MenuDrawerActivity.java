@@ -148,13 +148,14 @@ public class MenuDrawerActivity extends AppCompatActivity
             //intent = new Intent(getApplication(), MainActivity.class);
             //startActivity(intent);
         } else if (id == R.id.nav_listas) {
-            //fragment = new ListFragment();
-            //ft.replace(R.id.frame,fragment).commit();
+            fragment = new ListFragment();
+            ft.replace(R.id.frame,fragment).commit();
             //intent = new Intent(getApplication(), ListaActivity.class);
             //startActivity(intent);
 
         } else if (id == R.id.nav_carrito) {
-            fragment = new CarFragment();
+            //fragment = new CarFragment();
+            fragment = new ProductoFragment();
             ft.replace(R.id.frame,fragment).commit();
             //intent = new Intent(getApplication(), ListaActivity.class);
             //startActivity(intent);

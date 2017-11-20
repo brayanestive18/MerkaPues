@@ -2,14 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brayadiaz.merka.ListFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.brayadiaz.merka.ListFragment"
+    android:orientation="vertical">
 
   <android.support.v7.widget.RecyclerView
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:scrollbars="none"
-      android:id="@+id/my_recycler_view">
+      android:id="@+id/my_recycler_view_Lista">
 
   </android.support.v7.widget.RecyclerView>
+
+  <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:layout_gravity="center|fill_vertical"
+      android:id="@+id/addList"
+      android:text="Adicionar Listas"/>
 
 </LinearLayout>

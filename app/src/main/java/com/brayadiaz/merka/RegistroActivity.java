@@ -54,8 +54,8 @@ public class RegistroActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("ultID");//.child("ultID");
-
+        //myRef = database.getReference("ultID");//.child("ultID");
+/*
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,7 +71,7 @@ public class RegistroActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
         //Toast.makeText(RegistroActivity.this, String.valueOf("OnCreate"), Toast.LENGTH_LONG).show();
 
@@ -122,8 +122,6 @@ public class RegistroActivity extends AppCompatActivity {
             prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
             editor = prefs.edit();
 
-
-
             //ALmacenar el valor de optLog
             int logId = 0;
             editor.putInt("optLog", logId);
@@ -138,9 +136,6 @@ public class RegistroActivity extends AppCompatActivity {
             final Intent intent = new Intent();
             intent.putExtra("correo", correo);
             intent.putExtra("contrasena", contrasena);
-
-
-
 
             mAuth.createUserWithEmailAndPassword(correo, contrasena)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -163,9 +158,6 @@ public class RegistroActivity extends AppCompatActivity {
                         }
                     });
 
-
-
-
         }
     }
 
@@ -187,6 +179,10 @@ public class RegistroActivity extends AppCompatActivity {
 
     private void crear_tabla(FirebaseUser fuser){
         String uid = fuser.getUid();
+
+        editor.putString("uid", uid);
+        editor.apply();
+
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Users").child(uid).child("Info");
         user_class = new User(user, correo, "No Data", contrasena, uid,0);

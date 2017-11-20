@@ -230,9 +230,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            if (buscar(user) == 1) {
-                                crear_tabla(user);
-                            }
+                            buscar(user);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -262,7 +260,9 @@ public class LoginActivity extends AppCompatActivity {
         editor.putInt("optLog", logId);
         //editor.putString("correo", correoR);
         //editor.putString("contrasena", contrasenaR);
-        editor.commit();
+
+        editor.apply();
+        //editor.commit();
 
         //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent = new Intent(LoginActivity.this, MenuDrawerActivity.class);
@@ -328,7 +328,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser fuser) {
+        String uid = fuser.getUid();
         if (fuser != null){
+            editor.putString("uid", uid);
+            editor.apply();
             goMainActivity();
         }
         else {
@@ -378,10 +381,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            if (buscar(user) == 1) {
-                                Log.w(TAG, "No deberia entrar aca");
-                                crear_tabla(user);
-                            }
+                            buscar(user);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -492,7 +492,7 @@ public class LoginActivity extends AppCompatActivity {
         myRef = database.getReference("Users").child(uid).child("Listas");
     }
 
-    private int buscar (FirebaseUser fuser){
+    private void buscar (final FirebaseUser fuser){
         final String uid = fuser.getUid();
 
         database = FirebaseDatabase.getInstance();
@@ -502,11 +502,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(uid).exists()){
                     Log.w(TAG, "Usuario Encontrado: " + uid + dataSnapshot.child(uid).child("Info").child("name").toString());
-                    success = 0;
+                    //success = 0;
                 }
                 else {
-                    Log.w(TAG, "Usuario No Encontrado");
-                    success = 1;
+
+                    //success = 1;
+                    Log.w(TAG, "Usuario No Encontrado" + success);
+                    crear_tabla(fuser);
+
                 }
             }
 
@@ -517,7 +520,7 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
-        return success;
+        //return success;
     }
 
     @Override
@@ -525,7 +528,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         //mAuth.addAuthStateListener(firebaseAuthListener);
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        //updateUI(currentUser);
     }
 
     @Override

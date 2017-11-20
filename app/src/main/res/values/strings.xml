@@ -45,5 +45,10 @@
     <string name="title_activity_menu_drawer">MenuDrawerActivity</string>
     <string name="cerca">Tiendas Cercanas</string>
     <string name="title_activity_maps">Map</string>
+    <string name="acceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="name">Por Favor ingrese el nombre de la lista:</string>
+    <string name="hitname">Nombre de la lista</string>
+    <string name="newList">Nueva Lista</string>
 
 </resources>
