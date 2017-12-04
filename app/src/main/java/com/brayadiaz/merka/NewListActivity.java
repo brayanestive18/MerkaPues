@@ -68,18 +68,19 @@ public class NewListActivity extends AppCompatActivity {
         } else {
             sCant = String.valueOf(cant);
             loadData(uid, name, sCant, cant);
-            finish();
+            onBackPressed();
+            //finish();
         }
 
     }
 
     private void loadData(String uid, String name, String sCant, int cant){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Users").child(uid).child("Listas").child("list"+sCant).child("Info").child("cantidad");
+        DatabaseReference myRef = database.getReference("Users").child(uid).child("Listas").child(name).child("Info").child("cantidad");
         myRef.setValue(0);
-        myRef = database.getReference("Users").child(uid).child("Listas").child("list"+sCant).child("Info").child("id");
+        myRef = database.getReference("Users").child(uid).child("Listas").child(name).child("Info").child("id");
         myRef.setValue(cant);
-        myRef = database.getReference("Users").child(uid).child("Listas").child("list"+sCant).child("Info").child("name");
+        myRef = database.getReference("Users").child(uid).child("Listas").child(name).child("Info").child("name");
         myRef.setValue(name);
 
         myRef = database.getReference().child("Users").child(uid).child("Info").child("cantLis");

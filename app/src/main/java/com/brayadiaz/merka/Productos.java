@@ -8,12 +8,14 @@ public class Productos {
 
     private String name, code, precio;
     private String uid;
+    private int cant;
 
-    public Productos (String name, String code, String precio, String uid) {
+    public Productos (String name, String code, String precio, String uid, int cant) {
         this.name = name;
         this.code = code;
         this.precio = precio;
         this.uid = uid;
+        this.cant = cant;
     }
 
     public Productos() {
@@ -49,5 +51,13 @@ public class Productos {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public int getCant() {
+        return cant;
+    }
+
+    public void setCant(int cant) {
+        this.cant = cant;
     }
 }

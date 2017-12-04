@@ -46,7 +46,7 @@ public class MainActivity extends MenuDrawerActivity
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -79,7 +79,7 @@ public class MainActivity extends MenuDrawerActivity
                             });
                 } else if (logId == 3) {
                     //Putextras correo nombre contraseña a login
-                }*/
+                }
                 intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -87,5 +87,5 @@ public class MainActivity extends MenuDrawerActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

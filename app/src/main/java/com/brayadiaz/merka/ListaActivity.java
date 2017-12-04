@@ -92,8 +92,8 @@ public class ListaActivity extends MenuDrawerActivity
 
             Productos productos = getItem(position);
 
-            TextView tUid = item.findViewById(R.id.tID);
-            tUid.setText(productos.getUid());
+            //TextView tUid = item.findViewById(R.id.tID);
+            //tUid.setText(productos.getUid());
 
             TextView tName = item.findViewById(R.id.tName);
             tName.setText(productos.getName());

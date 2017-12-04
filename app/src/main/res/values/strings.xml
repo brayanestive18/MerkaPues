@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Merka Pues</string>
     <string name="correo">Correo Electrónico</string>
     <string name="contrasena">Contraseña</string>
@@ -50,5 +50,9 @@
     <string name="name">Por Favor ingrese el nombre de la lista:</string>
     <string name="hitname">Nombre de la lista</string>
     <string name="newList">Nueva Lista</string>
+    <string name="add">Agregar</string>
+    <string name="nbar">Buscar Producto</string>
+    <string name="app_label">Buscar Producto</string>
+    <string name="scan">Scan Bar Code</string>
 
 </resources>

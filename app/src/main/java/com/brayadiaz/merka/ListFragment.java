@@ -7,10 +7,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,17 +38,20 @@ import java.util.ArrayList;
 public class ListFragment extends Fragment {
 
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    //RecyclerView.Adapter adapter;
+    ListaAdapter adapter;
     View v;
 
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
 
+    FragmentManager fm;
+    FragmentTransaction ft;
+    Fragment fragment;
+
     private Context context;
     private String uid, nameList;
     private int cant;
-
-    private Button add;
 
     private ArrayList<String> listaArrayList = new ArrayList<>();
 
@@ -63,16 +71,28 @@ public class ListFragment extends Fragment {
         uid = prefs.getString("uid", "No Data");
         Log.d("UID: ", uid);
 
-        add = view.findViewById(R.id.addList);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        setHasOptionsMenu(true);
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        // TODO Add your menu entries here
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mAdd:
                 Intent intent = new Intent(getActivity(), NewListActivity.class);
                 startActivity(intent);
-            }
-        });
+                break;
+        }
+        return true;
 
-        return view;
     }
 
     @Override
@@ -96,20 +116,25 @@ public class ListFragment extends Fragment {
                 for(DataSnapshot single:dataSnapshot.getChildren()){
                     if (single.child("Info").child("name").exists()){
                         nameList = single.child("Info").child("name").getValue().toString();
+                        Log.d("Name: ", nameList);
                         listaArrayList.add(nameList);
                     }
                 }
-
                 adapter.notifyDataSetChanged();
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("onResume","YES");
+        loadData();
     }
 
     private void SearchList() {
@@ -141,6 +166,24 @@ public class ListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new ListaAdapter(getActivity(), listaArrayList);
+
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int itemPos = recyclerView.getChildLayoutPosition(view);
+                String name = listaArrayList.get(itemPos);
+                //Toast.makeText(getActivity(),"Clic: " + name ,Toast.LENGTH_SHORT).show();
+
+                editor.putString("ListName", name);
+                editor.commit();
+
+                fm = getActivity().getSupportFragmentManager();
+                ft = fm.beginTransaction();
+                fragment = new ProductoFragment();
+                ft.replace(R.id.frame,fragment).commit();
+            }
+        });
+
         //adapter = new ProductosAdapter(getActivity(), listaArrayList);
         recyclerView.setAdapter(adapter);
 

@@ -13,10 +13,11 @@ import java.util.ArrayList;
  * Created by braya on 19/11/2017.
  */
 
-public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHolder>{
+public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHolder> implements View.OnClickListener{
 
     Context context;
     private ArrayList<String> listasArrayList;
+    private View.OnClickListener listener;
 
     public ListaAdapter(Context context, ArrayList<String> listasArrayList){
         this.context = context;
@@ -27,6 +28,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
     public ListaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View iterView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         ListaViewHolder ListaViewHolder = new ListaViewHolder(iterView);
+        iterView.setOnClickListener(this);
         return ListaViewHolder;
     }
 
@@ -39,6 +41,17 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
     @Override
     public int getItemCount() {
         return listasArrayList.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener != null){
+            listener.onClick(v);
+        }
     }
 
     public static class ListaViewHolder extends RecyclerView.ViewHolder{

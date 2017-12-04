@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,8 +28,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -39,12 +45,19 @@ public class ProductoFragment extends Fragment {
     SharedPreferences.Editor editor;
     private Context context;
 
+    private String cant;
+    String codeContent, codeFormat;
+
     private String uid, listName;
-    private int cant;
+    private int cantPr;
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     View v;
+
+    FragmentManager fm;
+    FragmentTransaction ft;
+    Fragment fragment;
 
     SearchView searchView;
 
@@ -107,6 +120,16 @@ public class ProductoFragment extends Fragment {
                 //Intent intent = new Intent(getActivity(), NewListActivity.class);
                 //startActivity(intent);
                 break;
+            case R.id.codeqr:
+
+                fm = getActivity().getSupportFragmentManager();
+                ft = fm.beginTransaction();
+                fragment = new LectorFragment();
+                ft.replace(R.id.frame,fragment).commit();
+
+                //barCode();
+
+                break;
         }
         return true;
 
@@ -116,7 +139,6 @@ public class ProductoFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v=view;
-
         searchProd();
         loadDataProd();
         //loadData();
@@ -130,8 +152,6 @@ public class ProductoFragment extends Fragment {
 
         Log.d("Sear", mQuery.toString());
         Log.d("Sear", textProd);
-
-
 
     }
 
@@ -244,17 +264,23 @@ public class ProductoFragment extends Fragment {
     }
 
     private void searchProd(){
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("Users").child(uid).child("Listas").child(listName);
         //myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
+        Log.d("Prod", uid + " ::: " + listName);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                cant = dataSnapshot.child("Info").child("cantidad").getValue(Integer.class);
+                Log.d("Prod", dataSnapshot.child("Info").child("cantidad").toString());
+                if (dataSnapshot.child("Info").child("cantidad").exists()) {
+                    Log.d("Prod", "SearchProd");
+                    cantPr = dataSnapshot.child("Info").child("cantidad").getValue(Integer.class);
+                    Log.d("Prod", String.valueOf(cantPr));
 
-                if (cant == 0){
-                    Toast.makeText(getActivity(),"No hay productos para mostrar",Toast.LENGTH_SHORT).show();
+                    if (cantPr == 0) {
+                        Toast.makeText(getActivity(), "No hay productos para mostrar", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }

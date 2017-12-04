@@ -48,7 +48,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         public ProducttosViewHolder(View itemView) {
             super(itemView);
 
-            tID = itemView.findViewById(R.id.tID);
+            //tID = itemView.findViewById(R.id.tID);
             tName = itemView.findViewById(R.id.tName);
             tPrecio = itemView.findViewById(R.id.tPrecio);
             tCode = itemView.findViewById(R.id.tCode);
@@ -56,7 +56,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         }
 
         public void bindProductos(Productos productos, Context context){
-            tID.setText(productos.getUid());
+            //tID.setText(productos.getUid());
             tName.setText(productos.getName());
             tPrecio.setText(productos.getPrecio());
             tCode.setText(productos.getCode());
