@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -248,6 +249,12 @@ public class LectorFragment extends Fragment {
                                         single.child("id").getValue().toString(),cadList.get(item));
                                 Log.d("keyIF: ", productos.getName());
                                 productosArrayList.add(productos);*/
+                            } else {
+                                Toast.makeText(getActivity(), "No se encontro el producto", Toast.LENGTH_SHORT).show();
+                                fm = getActivity().getSupportFragmentManager();
+                                ft = fm.beginTransaction();
+                                fragment = new ProductoFragment();
+                                ft.replace(R.id.frame,fragment).commit();
                             }
 
                         /*

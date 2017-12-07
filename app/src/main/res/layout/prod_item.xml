@@ -5,22 +5,62 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/tName"
-            android:gravity="start"
-            android:text="Edwin"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whitesmoke"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:textColor="@color/black"
-            android:id="@+id/tCode"
-            android:gravity="end"
-            android:text="edwin@gmail.com"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/tName"
+            android:gravity="start"
+            android:text="Nombre del producto"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end">
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/red"
+                android:id="@+id/menos"
+                android:textColor="@color/white"
+                android:text="-"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_gravity="center_vertical|center_horizontal|center"
+                android:gravity="center_vertical|center_horizontal"/>
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/green"
+                android:id="@+id/mas"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="+"
+                android:textSize="30sp"
+                android:gravity="center_vertical|center_horizontal"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:id="@+id/tCode"
+                android:gravity="end"
+                android:text="Cantidad"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +68,11 @@
             android:gravity="end"
             android:textColor="@color/black"
             android:id="@+id/tPrecio"
-            android:text="3156457898"/>
+            android:text="$ PRecio"/>
+
+
+    </LinearLayout>
+
 
     </LinearLayout>
 

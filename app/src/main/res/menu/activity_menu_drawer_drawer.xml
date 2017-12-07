@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        tools:ignore="ExtraText">
         <item
             android:id="@+id/nav_promo"
             android:icon="@drawable/ic_local_offer_black_24px"
@@ -12,10 +13,12 @@
             android:id="@+id/nav_listas"
             android:icon="@drawable/ic_list_black_24px"
             android:title="@string/listas" />
+        <!--
         <item
             android:id="@+id/nav_carrito"
             android:icon="@drawable/ic_shopping_cart_black_24px"
             android:title="@string/carrito" />
+        -->
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map_marker_radius"

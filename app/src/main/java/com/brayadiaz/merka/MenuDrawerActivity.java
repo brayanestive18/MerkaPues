@@ -153,13 +153,13 @@ public class MenuDrawerActivity extends AppCompatActivity
             //intent = new Intent(getApplication(), ListaActivity.class);
             //startActivity(intent);
 
-        } else if (id == R.id.nav_carrito) {
+        } /*else if (id == R.id.nav_carrito) {
             //fragment = new CarFragment();
-            fragment = new ProductoFragment();
+            fragment = new SearchProdFragment();
             ft.replace(R.id.frame,fragment).commit();
             //intent = new Intent(getApplication(), ListaActivity.class);
             //startActivity(intent);
-        } else if (id == R.id.nav_map) {
+        } */else if (id == R.id.nav_map) {
             fragment = new MapsFragment();
             ft.replace(R.id.frame,fragment).commit();
             //intent = new Intent(getApplication(), MapsActivity.class);

@@ -194,14 +194,14 @@ public class NavigationActivity extends AppCompatActivity {
                                     item.setChecked(true);
                                 }
                                 break;
-                            case R.id.nav_carrito:
+                            /*case R.id.nav_carrito:
                                 fullLayout.closeDrawer(GravityCompat.START);
                                 if (!item.isChecked()) {
                                     //intent = new Intent(NavigationActivity.this, CarsShopActivity.class);
                                     handler.postDelayed(delay, 150);
                                     item.setChecked(true);
                                 }
-                                break;
+                                break;*/
                             case R.id.nav_perfil:
                                 fullLayout.closeDrawer(GravityCompat.START);
                                 if (!item.isChecked()) {

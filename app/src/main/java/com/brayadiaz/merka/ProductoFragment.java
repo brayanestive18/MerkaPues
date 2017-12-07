@@ -52,7 +52,8 @@ public class ProductoFragment extends Fragment {
     private int cantPr;
 
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    //RecyclerView.Adapter adapter;
+    ProductosAdapter adapter;
     View v;
 
     FragmentManager fm;
@@ -64,6 +65,7 @@ public class ProductoFragment extends Fragment {
     private ArrayList<Productos> productosArrayList = new ArrayList<>();
     private ArrayList<Integer> idList = new ArrayList<>();
     private ArrayList<Integer> cadList = new ArrayList<>();
+    private ArrayList<String> idProd = new ArrayList<>();
 
     public ProductoFragment() {
         // Required empty public constructor
@@ -79,10 +81,38 @@ public class ProductoFragment extends Fragment {
         context = getActivity();
         prefs = context.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         editor = prefs.edit();
+
         uid = prefs.getString("uid", "No Data");
         listName = prefs.getString("ListName", "No Data");
         Log.d("ListNAme: ", listName);
         Log.d("UID: ", uid);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef1 = database.getReference("Users").child(uid).child("Listas").child(listName).child("Info");
+
+        //myRef.setValue(0);
+
+        Log.d("Adapter", listName);
+        Log.d("Adapter", myRef1.toString());
+
+        myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int canti;
+                Log.d("Adapter", dataSnapshot.toString());
+                if (dataSnapshot.child("cantidad").exists()) {
+                    canti = dataSnapshot.child("cantidad").getValue(Integer.class);
+                    cant = String.valueOf(canti);
+
+                    Log.d("Adapter", cant + " -- Oncreate");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         setHasOptionsMenu(true);
         return view;
@@ -92,10 +122,10 @@ public class ProductoFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         // TODO Add your menu entries here
-        inflater.inflate(R.menu.menu_search, menu);
+        inflater.inflate(R.menu.mene_search_2, menu);
 
         final MenuItem menuItem = menu.findItem(R.id.buscarProd);
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        /*searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -105,10 +135,11 @@ public class ProductoFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                Log.d("Searc", "buscarProd");
                 buscar(newText);
                 return true;
             }
-        });
+        });*/
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -119,6 +150,11 @@ public class ProductoFragment extends Fragment {
             case R.id.buscarProd:
                 //Intent intent = new Intent(getActivity(), NewListActivity.class);
                 //startActivity(intent);
+                Log.d("Searc", "buscarProd");
+                fm = getActivity().getSupportFragmentManager();
+                ft = fm.beginTransaction();
+                fragment = new SearchProdFragment();
+                ft.replace(R.id.frame,fragment).commit();
                 break;
             case R.id.codeqr:
 
@@ -164,10 +200,12 @@ public class ProductoFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 idList.clear();
                 cadList.clear();
+                idProd.clear();
                 String flag;
                 for(DataSnapshot single:dataSnapshot.getChildren()){
                     flag = single.getKey().toLowerCase();
-                    Log.d("key: ", flag);
+                    Log.d("ADD: ", "KEY:: " + flag);
+                    idProd.add(flag);
                     //flag = single.child("id").getValue().toString();
                     //Log.d("code: ", flag);
 
@@ -176,6 +214,7 @@ public class ProductoFragment extends Fragment {
                         idLista = single.child("id").getValue(Integer.class);
                         cantProd = single.child("cantidad").getValue(Integer.class);
                         Log.d("key: ", String.valueOf(idLista));
+
                         idList.add(idLista);
                         cadList.add(cantProd);
                     }
@@ -204,33 +243,35 @@ public class ProductoFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 productosArrayList.clear();
                 String flag;
-                for(DataSnapshot single:dataSnapshot.getChildren()){
-                    flag = single.getKey().toLowerCase();
-                    Log.d("key2: ", flag);
-                    flag = single.child("id").getValue().toString();
-                    Log.d("keyid: ", flag);
-                    if (single.child("name").exists() && single.child("code").exists()
-                            && single.child("precio").exists() && single.child("id").exists()){
+                for (int item = 0;item < idList.size();item++ ) {
+                    int idLis = idList.get(item);
+                    for (DataSnapshot single : dataSnapshot.getChildren()) {
+                        flag = single.getKey().toLowerCase();
+                        Log.d("key2: ", flag);
+                        flag = single.child("id").getValue().toString();
+                        Log.d("keyid: ", flag);
+                        if (single.child("name").exists() && single.child("code").exists()
+                                && single.child("precio").exists() && single.child("id").exists()) {
 
-                        for (int item = 0;item < idList.size();item++ ){
-                            int idLis = idList.get(item);
+
                             //int idLis = 0;
 
                             Log.d("keyItem: ", String.valueOf(item));
-                            Log.d("keyIdLis: ", Integer.toString(idLis));
+                            Log.d("ADDname: ", Integer.toString(idLis));
                             Log.d("keyIdFB: ", single.child("id").getValue().toString());
 
-                            if(single.child("id").getValue().toString().equals(String.valueOf(idLis))){
+                            if (single.child("id").getValue().toString().equals(String.valueOf(idLis))) {
                                 Log.d("key5:", String.valueOf(idLis));
                                 Productos productos;
                                 productos = new Productos(single.child("name").getValue().toString(),
                                         single.child("code").getValue().toString(),
                                         single.child("precio").getValue().toString(),
-                                        single.child("id").getValue().toString(),cadList.get(item));
+                                        single.child("id").getValue().toString(), cadList.get(item));
+                                Log.d("ADDname: ", "Load: " + productos.getName());
                                 Log.d("keyIF: ", productos.getName());
                                 productosArrayList.add(productos);
                             }
-                        }
+
                         /*
                         Productos productos;
                         productos = new Productos(single.child("name").getValue().toString(),
@@ -240,8 +281,9 @@ public class ProductoFragment extends Fragment {
                         Log.d("IF: ", productos.getName());
                         productosArrayList.add(productos);
                         */
+                        }
+                        //productosArrayList.add(single.getKey().toString());
                     }
-                    //productosArrayList.add(single.getKey().toString());
                 }
 
                 adapter.notifyDataSetChanged();
@@ -256,10 +298,119 @@ public class ProductoFragment extends Fragment {
     }
 
     private void init() {
+        /*
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef1 = database.getReference().child("Users").child(uid).
+                        child("Listas").child(listName).child("Productos");
+
+        //myRef.setValue(0);
+
+        Log.d("ADD", listName);
+        Log.d("ADD", myRef1.toString());
+
+        myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int canti;
+                Log.d("ADD", dataSnapshot.toString());
+                for(DataSnapshot single:dataSnapshot.getChildren()) {
+                    if (single.child("id").exists()) {
+                        canti = dataSnapshot.child("id").getValue(Integer.class);
+                        cant = String.valueOf(canti);
+
+                        Log.d("ADD", cant + " -- Oncreate");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
+        /*
+
+        recyclerView = v.findViewById(R.id.my_recycler_view_Lista);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new ListaAdapter(getActivity(), listaArrayList);
+
+        adapter.setOnClickListener(new View.OnClickListener() {
+
+        @Override
+            public void onClick(View view) {
+                int itemPos = recyclerView.getChildLayoutPosition(view);
+                String name = listaArrayList.get(itemPos);
+                //Toast.makeText(getActivity(),"Clic: " + name ,Toast.LENGTH_SHORT).show();
+
+                editor.putString("ListName", name);
+                editor.commit();
+
+                fm = getActivity().getSupportFragmentManager();
+                ft = fm.beginTransaction();
+                fragment = new ProductoFragment();
+                ft.replace(R.id.frame,fragment).commit();
+            }
+
+         */
+
         recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new ProductosAdapter(getActivity(), productosArrayList);
+
+        Log.d("Prod", "init");
+        adapter.setOnAddListener(new OnAddListener() {
+            @Override
+            public void onAddClicker(int position) {
+                int cantidadProd;
+                Log.d("ADD", "ADD+: " + position);
+                Productos name = productosArrayList.get(position);
+                Log.d("ADDname", "ADD+: " + name.getName());
+                Log.d("ADD", "ADD+: " + name.getCant());
+                Log.d("ADDname", idProd.get(position));
+
+                cantidadProd = name.getCant();
+                cantidadProd = cantidadProd + 1;
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference().child("Users").child(uid).
+                        child("Listas").child(listName).child("Productos").child(idProd.get(position)).child("cantidad");
+                myRef.setValue(cantidadProd);
+
+                searchProd();
+                loadDataProd();
+                //loadData();
+                //init();
+            }
+
+            @Override
+            public void onDisClicker(int position) {
+                Log.d("ADD", "DIS+: " + position);
+                int cantidadProd;
+                Log.d("ADD", "ADD+: " + position);
+                Productos name = productosArrayList.get(position);
+                Log.d("ADDname", "ADD+: " + name.getName());
+                Log.d("ADD", "ADD+: " + name.getCant());
+                Log.d("ADDname", idProd.get(position));
+
+                cantidadProd = name.getCant();
+                if ( cantidadProd == 1){
+                    Toast.makeText(getActivity(), "No se puede disminuir más", Toast.LENGTH_SHORT).show();
+                } else {
+                    cantidadProd = cantidadProd - 1;
+                }
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference().child("Users").child(uid).
+                        child("Listas").child(listName).child("Productos").child(idProd.get(position)).child("cantidad");
+                myRef.setValue(cantidadProd);
+
+                searchProd();
+                loadDataProd();
+            }
+        });
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
     }
 
@@ -292,5 +443,7 @@ public class ProductoFragment extends Fragment {
         });
 
     }
+
+
 
 }
